@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useMemo, useRef } from "react";
 import {
   AccountId,
   Hbar,
@@ -8,6 +8,7 @@ import {
   type TransactionReceipt,
 } from "@hiero-ledger/sdk";
 import { useHieroClient } from "./core.js";
+import { useMirrorRest } from "./mirror.js";
 import {
   useTransactionFlow,
   type TransactionFlow,
@@ -361,18 +362,46 @@ export interface AllowanceStatus {
 }
 
 export function useAllowanceStatus(
-  _args: AllowanceStatusArgs | null
+  args: AllowanceStatusArgs | null
 ): {
   data: AllowanceStatus | null;
   status: "idle" | "loading" | "success" | "error";
   error: unknown | null;
   refresh: () => void;
 } {
+  const ownerId =
+    args === null
+      ? null
+      : typeof args.owner === "string"
+      ? args.owner
+      : args.owner.toString();
+
+  const { data, status, error, refresh } = useMirrorRest<{
+    hbar_allowances?: unknown[];
+    token_allowances?: unknown[];
+    nft_allowances?: unknown[];
+  }>(
+    ownerId ? `api/v1/accounts/${ownerId}` : "api/v1/accounts",
+    {
+      enabled: !!ownerId,
+    }
+  );
+
+  const mapped = useMemo<AllowanceStatus | null>(() => {
+    if (!ownerId || !data) return null;
+    const anyData = data as any;
+    return {
+      hbarAllowances: anyData.hbar_allowances ?? [],
+      tokenAllowances: anyData.token_allowances ?? [],
+      nftAllowances: anyData.nft_allowances ?? [],
+    };
+  }, [data, ownerId]);
+
   return {
-    data: null,
-    status: "idle",
-    error: null,
-    refresh: () => {},
+    data: mapped,
+    status: ownerId ? status : "idle",
+    error: ownerId ? error : null,
+    refresh,
   };
 }
 
@@ -439,19 +468,23 @@ export function useEstimateTransferFee(
 export interface TransferPreviewArgs extends TransferHbarArgs {}
 
 export function useTransferPreview(
-  _args: TransferPreviewArgs | null
+  args: TransferPreviewArgs | null
 ): {
-  data: null;
+  data: Hbar | null;
   status: "idle" | "loading" | "success" | "error";
   error: unknown | null;
   refresh: () => void;
 } {
-  return {
-    data: null,
-    status: "idle",
-    error: null,
-    refresh: () => {},
-  };
+  const accountId =
+    args === null
+      ? null
+      : typeof args.to === "string"
+      ? args.to
+      : args.to.toString();
+
+  return useEstimateTransferFee(
+    accountId ? { accountId } : null
+  );
 }
 
 export interface TransferFlowStatusArgs {
@@ -459,18 +492,33 @@ export interface TransferFlowStatusArgs {
 }
 
 export function useTransferFlowStatus(
-  _args: TransferFlowStatusArgs | null
+  args: TransferFlowStatusArgs | null
 ): {
-  data: FlowHandle<TransactionReceipt> | null;
+  data: unknown[] | null;
   status: "idle" | "loading" | "success" | "error";
   error: unknown | null;
   refresh: () => void;
 } {
+  const flowId = args?.flowId ?? null;
+
+  const { data, status, error, refresh } = useMirrorRest<{
+    transactions?: unknown[];
+  }>("api/v1/transactions", {
+    enabled: !!flowId,
+    query: flowId ? { transactionId: flowId } : undefined,
+  });
+
+  const mapped = useMemo<unknown[] | null>(() => {
+    if (!flowId || !data) return null;
+    const anyData = data as any;
+    return anyData.transactions ?? [];
+  }, [data, flowId]);
+
   return {
-    data: null,
-    status: "idle",
-    error: null,
-    refresh: () => {},
+    data: mapped,
+    status: flowId ? status : "idle",
+    error: flowId ? error : null,
+    refresh,
   };
 }
 
@@ -479,17 +527,37 @@ export interface TransferHistoryArgs {
 }
 
 export function useTransferHistory(
-  _args: TransferHistoryArgs | null
+  args: TransferHistoryArgs | null
 ): {
   data: unknown[] | null;
   status: "idle" | "loading" | "success" | "error";
   error: unknown | null;
   refresh: () => void;
 } {
+  const accountId =
+    args === null
+      ? null
+      : typeof args.accountId === "string"
+      ? args.accountId
+      : args.accountId.toString();
+
+  const { data, status, error, refresh } = useMirrorRest<{
+    transactions?: unknown[];
+  }>("api/v1/transactions", {
+    enabled: !!accountId,
+    query: accountId ? { "account.id": accountId } : undefined,
+  });
+
+  const mapped = useMemo<unknown[] | null>(() => {
+    if (!accountId || !data) return null;
+    const anyData = data as any;
+    return anyData.transactions ?? [];
+  }, [data, accountId]);
+
   return {
-    data: null,
-    status: "idle",
-    error: null,
-    refresh: () => {},
+    data: mapped,
+    status: accountId ? status : "idle",
+    error: accountId ? error : null,
+    refresh,
   };
 }
