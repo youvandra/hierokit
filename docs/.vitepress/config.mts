@@ -42,7 +42,8 @@ export default defineConfig({
               { text: 'Mental Model', link: '/guide/mental-model' },
               { text: 'Client abstraction', link: '/guide/client-abstraction' },
               { text: 'Transaction flows', link: '/guide/transaction-flows' },
-              { text: 'Idempotency', link: '/guide/idempotency' }
+              { text: 'Idempotency', link: '/guide/idempotency' },
+              { text: 'Testing philosophy', link: '/guide/testing-philosophy' }
             ]
           }
         ]
