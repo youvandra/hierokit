@@ -37,11 +37,9 @@ vi.mock("@hiero-ledger/sdk", async () => {
         this.amount = amount;
       }
       negated() {
-        return new (this.constructor as typeof import("@hiero-ledger/sdk").Hbar)(
-          -this.amount
-        );
+        return new (this.constructor as any)(-this.amount);
       }
-    } as typeof actual.Hbar,
+    },
     TransferTransaction: class {
       transfers: unknown[] = [];
       memo: string | undefined;
@@ -53,7 +51,7 @@ vi.mock("@hiero-ledger/sdk", async () => {
         this.memo = memo;
         return this;
       }
-    } as typeof actual.TransferTransaction,
+    },
   };
 });
 

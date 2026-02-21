@@ -8,7 +8,7 @@ export interface FeeBreakdown {
 
 export async function estimateExecutableCost(
   client: Client,
-  executable: { getCost: (client: unknown) => Promise<Hbar> }
+  executable: { getCost: (client: any) => Promise<Hbar> }
 ): Promise<Hbar> {
   const sdkClient = client.raw as any;
   return executable.getCost(sdkClient);
