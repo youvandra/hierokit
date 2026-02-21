@@ -56,7 +56,7 @@ main().catch(console.error);
 
 ## Documentation
 
-Visit our documentation site at [https://your-username.github.io/hierokit](https://your-username.github.io/hierokit) (or run locally with `npm run docs:dev`).
+Visit our documentation site at [https://youvandra.github.io/hierokit](https://youvandra.github.io/hierokit) (or run locally with `npm run docs:dev`).
 
 ## Contributing
 

@@ -11,7 +11,7 @@ hero:
       link: /guide/introduction
     - theme: alt
       text: View on GitHub
-      link: https://github.com/your-username/hierokit
+      link: https://github.com/youvandra/hierokit
 
 features:
   - title: Simple & Intuitive

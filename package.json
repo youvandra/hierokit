@@ -1,8 +1,8 @@
 {
   "name": "hierokit",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Flow-based TypeScript toolkit for safe, production-ready transactions on Hiero/Hedera networks",
+  "main": "dist/index.js",
   "scripts": {
     "test": "vitest run",
     "build": "tsup",
@@ -12,10 +12,25 @@
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "hedera",
+    "hiero",
+    "sdk",
+    "typescript",
+    "transactions",
+    "web3"
+  ],
+  "author": "youvandra",
+  "license": "Apache-2.0",
   "type": "commonjs",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/youvandra/hierokit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/youvandra/hierokit/issues"
+  },
+  "homepage": "https://github.com/youvandra/hierokit#readme",
   "dependencies": {
     "@hashgraph/sdk": "^2.80.0"
   },

@@ -29,7 +29,7 @@ export default defineConfig({
     ],
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/your-username/hierokit' }
+      { icon: 'github', link: 'https://github.com/youvandra/hierokit' }
     ]
   }
 })
