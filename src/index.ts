@@ -4,4 +4,6 @@ export * from "./TransactionHandle.js";
 export * from "./errors.js";
 export * from "./results.js";
 export * from "./signer.js";
+export * from "./intent.js";
+export * from "./fees.js";
 export * from "./react/hooks.js";

@@ -36,3 +36,54 @@ This mirrors the conceptual steps:
 3. **submit()** – submit with retry handling
 4. **waitForReceipt()** – wait for consensus and get a receipt
 
+## Canonical Node‑only example
+
+```ts
+import {
+  Client,
+  normalizeReceipt,
+  normalizeError,
+} from "hierokit";
+import {
+  TransferTransaction,
+  Hbar,
+} from "@hiero-ledger/sdk";
+
+const client = new Client({
+  network: "testnet",
+  operator: {
+    accountId: process.env.HEDERA_ACCOUNT_ID!,
+    privateKey: process.env.HEDERA_PRIVATE_KEY!,
+  },
+  defaultTimeoutMs: 60_000,
+  maxRetries: 3,
+});
+
+const flow = client.prepareFlow(
+  () => {
+    return new TransferTransaction()
+      .addHbarTransfer("0.0.123", new Hbar(-10))
+      .addHbarTransfer("0.0.456", new Hbar(10))
+      .setTransactionMemo("order:123");
+  },
+  {
+    timeout: 60_000,
+    maxRetries: 3,
+  }
+);
+
+async function main() {
+  try {
+    const receipt = await flow.waitForReceipt();
+    const normalized = normalizeReceipt(receipt);
+    console.log(normalized);
+  } catch (err) {
+    const normalized = normalizeError(err);
+    console.error(normalized.code, normalized.message);
+  }
+}
+
+main().catch((err) => {
+  console.error(err);
+});
+```
