@@ -1,4 +1,6 @@
-import { AccountId, PrivateKey } from "@hiero-ledger/sdk";
+import type { AccountId, PrivateKey, Signer as SdkSigner } from "@hiero-ledger/sdk";
+
+export type HieroSigner = SdkSigner;
 
 export interface HieroConfig {
   /**
@@ -13,13 +15,31 @@ export interface HieroConfig {
    */
   operator?: {
     accountId: string | AccountId;
-    privateKey: string | PrivateKey;
+    privateKey?: string | PrivateKey;
   };
+
+  /**
+   * Optional external signer(s) used to sign and submit transactions.
+   * Can represent browser wallets, hardware devices, multi‑sig, etc.
+   */
+  signers?: HieroSigner[];
 
   /**
    * Optional custom mirror node URL.
    */
   mirrorNodeUrl?: string;
+
+  /**
+   * Default maximum number of retries for transactions.
+   * Per‑call overrides via TransactionOptions.maxRetries.
+   */
+  maxRetries?: number;
+
+  /**
+   * Default timeout in milliseconds for transaction execution and receipt.
+   * Per‑call overrides via TransactionOptions.timeout.
+   */
+  defaultTimeoutMs?: number;
 }
 
 export interface TransactionOptions {

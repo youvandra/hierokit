@@ -17,7 +17,9 @@ export default defineConfig({
           { text: 'Introduction', link: '/guide/introduction' },
           { text: 'Getting Started', link: '/guide/getting-started' },
           { text: 'Mental Model', link: '/guide/mental-model' },
-          { text: 'React overview', link: '/guide/react' }
+          { text: 'React overview', link: '/guide/react' },
+          { text: 'Client abstraction', link: '/guide/client-abstraction' },
+          { text: 'Transaction flows', link: '/guide/transaction-flows' }
         ]
       },
       {
@@ -103,7 +105,10 @@ export default defineConfig({
         text: 'API Reference',
         items: [
           { text: 'Client', link: '/api/client' },
-          { text: 'Transactions', link: '/api/transactions' }
+          { text: 'Transactions', link: '/api/transactions' },
+          { text: 'Errors', link: '/api/errors' },
+          { text: 'Results', link: '/api/results' },
+          { text: 'Signer', link: '/api/signer' }
         ]
       }
     ],
