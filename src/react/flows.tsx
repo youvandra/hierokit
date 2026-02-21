@@ -29,6 +29,11 @@ export interface TransactionFlowOptions {
   timeoutMs?: number;
 }
 
+export interface UseFlowActionResult<TArgs, TReceipt = TransactionReceipt> {
+  flow: FlowHandle<TReceipt>;
+  execute: (args: TArgs) => Promise<void>;
+}
+
 export type TransactionFlow<TReceipt = TransactionReceipt> = (
   client: Client
 ) => Promise<TReceipt>;
@@ -160,4 +165,3 @@ export function useCancelFlow<TReceipt>(handle: FlowHandle<TReceipt>) {
 export function useFlowTimeout<TReceipt>(handle: FlowHandle<TReceipt>) {
   return handle.timeoutMs;
 }
-

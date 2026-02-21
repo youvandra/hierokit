@@ -25,6 +25,7 @@ import {
   type TransactionFlow,
   type TransactionFlowOptions,
   type FlowHandle,
+  type UseFlowActionResult,
 } from "./flows.js";
 
 type QueryStatus = "idle" | "loading" | "success" | "error";
@@ -34,11 +35,6 @@ interface QueryResult<T> {
   status: QueryStatus;
   error: unknown | null;
   refresh: () => void;
-}
-
-export interface UseFlowActionResult<TArgs, TReceipt = TransactionReceipt> {
-  flow: FlowHandle<TReceipt>;
-  execute: (args: TArgs) => Promise<void>;
 }
 
 export interface UseCreateFungibleTokenArgs {
@@ -803,4 +799,3 @@ export function useUnpauseToken(
 
   return { flow, execute };
 }
-
