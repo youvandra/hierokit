@@ -16,7 +16,8 @@ export default defineConfig({
         items: [
           { text: 'Introduction', link: '/guide/introduction' },
           { text: 'Getting Started', link: '/guide/getting-started' },
-          { text: 'Mental Model', link: '/guide/mental-model' }
+          { text: 'Mental Model', link: '/guide/mental-model' },
+          { text: 'React Hooks', link: '/guide/react' }
         ]
       },
       {

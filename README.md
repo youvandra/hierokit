@@ -26,7 +26,7 @@ HieroKit sits on top of the official `hiero-sdk-js` / `@hashgraph/sdk` and provi
 npm install hierokit @hashgraph/sdk
 ```
 
-## Quick Start
+## Quick Start (Node / backend)
 
 ```typescript
 import { Client } from "hierokit";
@@ -52,6 +52,50 @@ async function main() {
 }
 
 main().catch(console.error);
+```
+
+## Quick Start (React)
+
+HieroKit includes first‑class React support via hooks:
+
+```tsx
+import {
+  HieroProvider,
+  useAccountId,
+  useAccountHbarBalance,
+} from "hierokit";
+
+const config = {
+  network: "testnet" as const,
+  operator: {
+    accountId: process.env.HEDERA_ACCOUNT_ID as string,
+    privateKey: process.env.HEDERA_PRIVATE_KEY as string,
+  },
+  mirrorNodeUrl: "https://testnet.mirrornode.hedera.com",
+};
+
+function AccountSummary() {
+  const accountId = useAccountId();
+  const { data: hbar, status } = useAccountHbarBalance();
+
+  return (
+    <div>
+      <div>Account: {accountId?.toString() ?? "n/a"}</div>
+      <div>
+        HBAR:{" "}
+        {status === "success" && hbar ? hbar.toString() : "loading..."}
+      </div>
+    </div>
+  );
+}
+
+export function AppRoot() {
+  return (
+    <HieroProvider config={config}>
+      <AccountSummary />
+    </HieroProvider>
+  );
+}
 ```
 
 ## Documentation
