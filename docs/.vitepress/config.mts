@@ -19,7 +19,8 @@ export default defineConfig({
           { text: 'Mental Model', link: '/guide/mental-model' },
           { text: 'React overview', link: '/guide/react' },
           { text: 'Client abstraction', link: '/guide/client-abstraction' },
-          { text: 'Transaction flows', link: '/guide/transaction-flows' }
+          { text: 'Transaction flows', link: '/guide/transaction-flows' },
+          { text: 'Idempotency', link: '/guide/idempotency' }
         ]
       },
       {
@@ -108,7 +109,9 @@ export default defineConfig({
           { text: 'Transactions', link: '/api/transactions' },
           { text: 'Errors', link: '/api/errors' },
           { text: 'Results', link: '/api/results' },
-          { text: 'Signer', link: '/api/signer' }
+          { text: 'Signer', link: '/api/signer' },
+          { text: 'Intent', link: '/api/intent' },
+          { text: 'Fees', link: '/api/fees' }
         ]
       }
     ],

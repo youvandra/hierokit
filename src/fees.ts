@@ -1,4 +1,4 @@
-import type { Executable, Hbar, TransactionRecord } from "@hiero-ledger/sdk";
+import type { Hbar, TransactionRecord } from "@hiero-ledger/sdk";
 import type { Client } from "./Client.js";
 
 export interface FeeBreakdown {
@@ -8,7 +8,7 @@ export interface FeeBreakdown {
 
 export async function estimateExecutableCost(
   client: Client,
-  executable: Executable<unknown, unknown, unknown>
+  executable: { getCost: (client: unknown) => Promise<Hbar> }
 ): Promise<Hbar> {
   const sdkClient = client.raw as any;
   return executable.getCost(sdkClient);
@@ -29,4 +29,3 @@ export function extractFeeFromRecord(record: TransactionRecord): FeeBreakdown {
     chargedFee,
   };
 }
-
