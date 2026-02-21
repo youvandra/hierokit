@@ -30,9 +30,11 @@ export default defineConfig({
           { text: 'useNetwork', link: '/hooks/useNetwork' },
           { text: 'useLedgerId', link: '/hooks/useLedgerId' },
           { text: 'useNodeList', link: '/hooks/useNodeList' },
+          { text: 'useNetworkAddressBook', link: '/hooks/useNetworkAddressBook' },
           { text: 'useClientStatus', link: '/hooks/useClientStatus' },
           { text: 'useClientHealth', link: '/hooks/useClientHealth' },
           { text: 'useMirrorNodeUrl', link: '/hooks/useMirrorNodeUrl' },
+          { text: 'useMirrorRest', link: '/hooks/useMirrorRest' },
           { text: 'useMaxTransactionFee', link: '/hooks/useMaxTransactionFee' },
           { text: 'useDefaultOperator', link: '/hooks/useDefaultOperator' },
 
@@ -44,6 +46,7 @@ export default defineConfig({
           { text: 'useAccountNFTs', link: '/hooks/useAccountNFTs' },
           { text: 'useAccountKeys', link: '/hooks/useAccountKeys' },
           { text: 'useAccountStakingInfo', link: '/hooks/useAccountStakingInfo' },
+          { text: 'useUpdateAccountStaking', link: '/hooks/useUpdateAccountStaking' },
           { text: 'useAccountMemo', link: '/hooks/useAccountMemo' },
           { text: 'useIsAccountDeleted', link: '/hooks/useIsAccountDeleted' },
           { text: 'useIsAccountFrozen', link: '/hooks/useIsAccountFrozen' },
@@ -92,7 +95,8 @@ export default defineConfig({
           { text: 'useFlowError', link: '/hooks/useFlowError' },
           { text: 'useRetryFlow', link: '/hooks/useRetryFlow' },
           { text: 'useCancelFlow', link: '/hooks/useCancelFlow' },
-          { text: 'useFlowTimeout', link: '/hooks/useFlowTimeout' }
+          { text: 'useFlowTimeout', link: '/hooks/useFlowTimeout' },
+          { text: 'usePollingQuery', link: '/hooks/usePollingQuery' }
         ]
       },
       {
