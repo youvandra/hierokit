@@ -9,7 +9,7 @@ client – there is no separate network stack.
 React support is bundled in the main package:
 
 ```bash
-npm install hierokit @hashgraph/sdk react react-dom
+npm install hierokit @hiero-ledger/sdk react react-dom
 ```
 
 The library declares `react` as a peer dependency so you can manage the exact
@@ -260,4 +260,3 @@ All derived from `AccountInfo`:
 
 These are thin selectors over the raw SDK response, keeping your components
 focused on rendering and user flows instead of query plumbing.
-

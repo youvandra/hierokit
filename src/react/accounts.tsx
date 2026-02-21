@@ -4,7 +4,7 @@ import {
   AccountInfoQuery,
   AccountBalanceQuery,
   Hbar,
-} from "@hashgraph/sdk";
+} from "@hiero-ledger/sdk";
 import { useHieroClient } from "./core.js";
 
 type QueryStatus = "idle" | "loading" | "success" | "error";

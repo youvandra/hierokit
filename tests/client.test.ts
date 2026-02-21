@@ -3,8 +3,8 @@ import { Client } from "../src/Client.js";
 import { HieroConfig } from "../src/types.js";
 
 // Mock the underlying SDK client
-vi.mock("@hashgraph/sdk", async () => {
-  const actual = await vi.importActual("@hashgraph/sdk");
+vi.mock("@hiero-ledger/sdk", async () => {
+  const actual = await vi.importActual("@hiero-ledger/sdk");
   return {
     ...actual,
     Client: {

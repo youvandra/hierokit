@@ -1,4 +1,9 @@
-import { TransactionResponse, TransactionReceipt, Client, TransactionRecord } from "@hashgraph/sdk";
+import {
+  TransactionResponse,
+  TransactionReceipt,
+  Client,
+  TransactionRecord,
+} from "@hiero-ledger/sdk";
 
 export class TransactionHandle {
   private _response: TransactionResponse;

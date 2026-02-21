@@ -1,6 +1,6 @@
 # Introduction
 
-HieroKit is a developer experience (DX) toolkit for building on the Hiero/Hedera network. It sits on top of the official `hiero-sdk-js` / `@hashgraph/sdk` and Mirror Node APIs.
+HieroKit is a developer experience (DX) toolkit for building on the Hiero/Hedera network. It sits on top of the official `@hiero-ledger/sdk` and Mirror Node APIs.
 
 ## Why HieroKit?
 

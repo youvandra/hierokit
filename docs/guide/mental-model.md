@@ -4,7 +4,7 @@ HieroKit is designed to be the "missing layer" between the raw SDK and your appl
 
 ## The Problem
 
-The raw Hiero SDK (`@hashgraph/sdk`) is powerful but low-level. It requires you to:
+The raw Hiero SDK (`@hiero-ledger/sdk`) is powerful but low-level. It requires you to:
 1. Manually handle client connection logic.
 2. Manually sign transactions (sometimes).
 3. Manually wait for consensus (receipts).

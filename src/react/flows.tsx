@@ -1,5 +1,5 @@
 import { useCallback, useId, useMemo, useState } from "react";
-import type { TransactionReceipt } from "@hashgraph/sdk";
+import type { TransactionReceipt } from "@hiero-ledger/sdk";
 import { useHieroClient } from "./core.js";
 import type { Client } from "../Client.js";
 

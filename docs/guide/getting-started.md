@@ -3,7 +3,7 @@
 ## Installation
 
 ```bash
-npm install hierokit @hashgraph/sdk
+npm install hierokit @hiero-ledger/sdk
 ```
 
 ## Basic Usage (Node / backend)

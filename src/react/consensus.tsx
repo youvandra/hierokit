@@ -8,7 +8,7 @@ import {
   TopicId,
   AccountId,
   type TransactionReceipt,
-} from "@hashgraph/sdk";
+} from "@hiero-ledger/sdk";
 import { useHieroClient } from "./core.js";
 import {
   useTransactionFlow,

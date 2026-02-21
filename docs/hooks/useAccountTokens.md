@@ -18,7 +18,7 @@ import { useAccountTokens } from "hierokit";
 
 ```ts
 {
-  data: TokenBalanceMap | null; // from @hashgraph/sdk
+  data: TokenBalanceMap | null; // from @hiero-ledger/sdk
   status: "idle" | "loading" | "success" | "error";
   error: unknown | null;
   refresh: () => void;
@@ -45,4 +45,3 @@ function TokenList() {
   );
 }
 ```
-

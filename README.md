@@ -6,7 +6,7 @@ A developer experience (DX) toolkit for building on the Hiero/Hedera network.
 
 ## Overview
 
-HieroKit sits on top of the official `hiero-sdk-js` / `@hashgraph/sdk` and provides a cleaner, opinionated, and production-ready API for interacting with the network. It simplifies complex interactions, handles transaction lifecycles, and encodes best practices.
+HieroKit sits on top of the official `@hiero-ledger/sdk` and provides a cleaner, opinionated, and production-ready API for interacting with the network. It simplifies complex interactions, handles transaction lifecycles, and encodes best practices.
 
 **HieroKit is NOT**:
 - A blockchain node.
@@ -23,7 +23,7 @@ HieroKit sits on top of the official `hiero-sdk-js` / `@hashgraph/sdk` and provi
 ## Installation
 
 ```bash
-npm install hierokit @hashgraph/sdk
+npm install hierokit @hiero-ledger/sdk
 ```
 
 ## Quick Start (Node / backend)

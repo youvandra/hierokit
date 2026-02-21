@@ -7,8 +7,8 @@ import {
   TransactionReceipt,
   Hbar,
   TransferTransaction,
-  Status
-} from "@hashgraph/sdk";
+  Status,
+} from "@hiero-ledger/sdk";
 import { HieroConfig, TransactionOptions } from "./types.js";
 import { TransactionHandle } from "./TransactionHandle.js";
 
