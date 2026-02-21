@@ -17,7 +17,49 @@ export default defineConfig({
           { text: 'Introduction', link: '/guide/introduction' },
           { text: 'Getting Started', link: '/guide/getting-started' },
           { text: 'Mental Model', link: '/guide/mental-model' },
-          { text: 'React Hooks', link: '/guide/react' }
+          { text: 'React overview', link: '/guide/react' }
+        ]
+      },
+      {
+        text: 'Hooks',
+        items: [
+          { text: 'Overview', link: '/hooks/index' },
+
+          { text: 'useHieroClient', link: '/hooks/useHieroClient' },
+          { text: 'useHieroConfig', link: '/hooks/useHieroConfig' },
+          { text: 'useNetwork', link: '/hooks/useNetwork' },
+          { text: 'useLedgerId', link: '/hooks/useLedgerId' },
+          { text: 'useNodeList', link: '/hooks/useNodeList' },
+          { text: 'useClientStatus', link: '/hooks/useClientStatus' },
+          { text: 'useClientHealth', link: '/hooks/useClientHealth' },
+          { text: 'useMirrorNodeUrl', link: '/hooks/useMirrorNodeUrl' },
+          { text: 'useMaxTransactionFee', link: '/hooks/useMaxTransactionFee' },
+          { text: 'useDefaultOperator', link: '/hooks/useDefaultOperator' },
+
+          { text: 'useAccountId', link: '/hooks/useAccountId' },
+          { text: 'useAccountInfo', link: '/hooks/useAccountInfo' },
+          { text: 'useAccountBalance', link: '/hooks/useAccountBalance' },
+          { text: 'useAccountHbarBalance', link: '/hooks/useAccountHbarBalance' },
+          { text: 'useAccountTokens', link: '/hooks/useAccountTokens' },
+          { text: 'useAccountNFTs', link: '/hooks/useAccountNFTs' },
+          { text: 'useAccountKeys', link: '/hooks/useAccountKeys' },
+          { text: 'useAccountStakingInfo', link: '/hooks/useAccountStakingInfo' },
+          { text: 'useAccountMemo', link: '/hooks/useAccountMemo' },
+          { text: 'useIsAccountDeleted', link: '/hooks/useIsAccountDeleted' },
+          { text: 'useIsAccountFrozen', link: '/hooks/useIsAccountFrozen' },
+          { text: 'useAccountExpiration', link: '/hooks/useAccountExpiration' },
+          { text: 'useAccountAutoRenew', link: '/hooks/useAccountAutoRenew' },
+          { text: 'useAccountProxy', link: '/hooks/useAccountProxy' },
+          { text: 'useAccountLedgerId', link: '/hooks/useAccountLedgerId' },
+
+          { text: 'useTransactionFlow', link: '/hooks/useTransactionFlow' },
+          { text: 'useCreateFlow', link: '/hooks/useCreateFlow' },
+          { text: 'useFlowStatus', link: '/hooks/useFlowStatus' },
+          { text: 'useFlowReceipt', link: '/hooks/useFlowReceipt' },
+          { text: 'useFlowError', link: '/hooks/useFlowError' },
+          { text: 'useRetryFlow', link: '/hooks/useRetryFlow' },
+          { text: 'useCancelFlow', link: '/hooks/useCancelFlow' },
+          { text: 'useFlowTimeout', link: '/hooks/useFlowTimeout' }
         ]
       },
       {
