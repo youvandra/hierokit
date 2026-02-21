@@ -62,8 +62,8 @@ const client = new Client({
 const flow = client.prepareFlow(
   () => {
     return new TransferTransaction()
-      .addHbarTransfer("0.0.123", new Hbar(-10))
-      .addHbarTransfer("0.0.456", new Hbar(10))
+      .addHbarTransfer("0.0.alice", new Hbar(-10))
+      .addHbarTransfer("0.0.bob", new Hbar(10))
       .setTransactionMemo("order:123");
   },
   {

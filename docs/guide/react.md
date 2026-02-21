@@ -94,7 +94,7 @@ import {
 } from "hierokit";
 
 const transferFlow: TransactionFlow = async (client) => {
-  const handle = await client.transferHbar("0.0.12345", 10, "Hello HieroKit");
+  const handle = await client.transferHbar("0.0.xxxx", 10, "Hello HieroKit");
   const receipt = await handle.wait();
   return receipt;
 };

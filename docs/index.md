@@ -58,9 +58,8 @@ HieroKit is created and maintained by:
 ## React example
 
 If you prefer to start from a working example, check out the tiny React app
-in the source tree:
-
-- `src/react/example.tsx`
+in the source tree (`src/react/example.tsx`). This is a demo-only component
+and not part of the public API surface.
 
 It shows how to:
 

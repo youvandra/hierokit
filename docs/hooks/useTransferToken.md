@@ -51,8 +51,8 @@ function SendToken() {
       <button
         onClick={() =>
           execute({
-            tokenId: "0.0.5005",
-            to: "0.0.12345",
+            tokenId: "0.0.token",
+            to: "0.0.recipient",
             amount: 100,
           })
         }
@@ -64,4 +64,3 @@ function SendToken() {
   );
 }
 ```
-

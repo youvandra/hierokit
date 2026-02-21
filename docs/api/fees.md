@@ -11,7 +11,7 @@ import {
   AccountBalanceQuery,
 } from "@hiero-ledger/sdk";
 
-const query = new AccountBalanceQuery().setAccountId("0.0.123");
+const query = new AccountBalanceQuery().setAccountId("0.0.xxxx");
 const cost = await estimateExecutableCost(client, query);
 ```
 

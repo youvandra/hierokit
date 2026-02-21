@@ -28,7 +28,7 @@ function useMirrorRest<T = unknown>(
 ```
 
 - `path`
-  - Mirror REST path, for example `"/api/v1/accounts/0.0.12345/transactions"`.
+  - Mirror REST path, for example `"/api/v1/accounts/0.0.xxxx/transactions"`.
 - `options.query`
   - Optional querystring parameters encoded into the URL.
 - `options.enabled`
@@ -83,4 +83,3 @@ function TopicMessages({ topicId }: { topicId: string }) {
   );
 }
 ```
-

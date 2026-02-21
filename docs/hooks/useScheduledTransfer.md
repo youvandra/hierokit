@@ -45,7 +45,7 @@ function ConfirmThenSend() {
 
   async function onConfirm() {
     await execute({
-      to: "0.0.12345",
+      to: "0.0.recipient",
       amount: 1,
       memo: "Scheduled payout",
     });
@@ -59,4 +59,3 @@ function ConfirmThenSend() {
   );
 }
 ```
-

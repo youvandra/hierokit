@@ -51,8 +51,8 @@ function PayrollButton() {
         onClick={() =>
           execute({
             items: [
-              { to: "0.0.1001", amount: 5 },
-              { to: "0.0.1002", amount: 7 },
+              { to: "0.0.alice", amount: 5 },
+              { to: "0.0.bob", amount: 7 },
             ],
             memo: "Weekly payout",
           })
@@ -65,4 +65,3 @@ function PayrollButton() {
   );
 }
 ```
-

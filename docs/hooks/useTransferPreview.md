@@ -38,7 +38,7 @@ import { useTransferPreview } from "hierokit";
 
 function PreviewPanel() {
   const { data, status, refresh } = useTransferPreview({
-    to: "0.0.1002",
+    to: "0.0.recipient",
     amount: 1,
   });
 

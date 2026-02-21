@@ -14,13 +14,13 @@ import { Client } from "hierokit";
 const client = new Client({
   network: "testnet",
   operator: {
-    accountId: "0.0.12345",
+    accountId: "0.0.xxxx",
     privateKey: "302e...",
   },
 });
 
 // Transfer HBAR
-const handle = await client.transferHbar("0.0.54321", 10);
+const handle = await client.transferHbar("0.0.yyyy", 10);
 const receipt = await handle.wait();
 
 console.log(`Transaction status: ${receipt.status.toString()}`);

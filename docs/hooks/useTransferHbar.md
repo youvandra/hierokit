@@ -52,7 +52,7 @@ function SendHbar() {
       <button
         onClick={() =>
           execute({
-            to: "0.0.12345",
+            to: "0.0.recipient",
             amount: 10,
             memo: "Hello HieroKit",
           })
@@ -68,4 +68,3 @@ function SendHbar() {
   );
 }
 ```
-

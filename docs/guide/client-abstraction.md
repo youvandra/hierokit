@@ -11,7 +11,7 @@ import { Client, type HieroConfig } from "hierokit";
 const config: HieroConfig = {
   network: "testnet",
   operator: {
-    accountId: "0.0.123",
+    accountId: "0.0.xxxx",
     // optional: omit when using external signers only
     privateKey: process.env.HEDERA_PRIVATE_KEY!,
   },
@@ -66,4 +66,3 @@ This makes it suitable for:
 - hardware wallets
 - multi‑sig setups
 - scheduled transaction signers
-

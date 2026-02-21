@@ -51,9 +51,9 @@ function RevokeButton() {
       <button
         onClick={() =>
           execute({
-            tokenId: "0.0.5005",
-            owner: "0.0.1001",
-            spender: "0.0.2002",
+            tokenId: "0.0.token",
+            owner: "0.0.owner",
+            spender: "0.0.spender",
             amount: 0,
           })
         }
@@ -65,4 +65,3 @@ function RevokeButton() {
   );
 }
 ```
-

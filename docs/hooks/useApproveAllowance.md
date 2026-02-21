@@ -56,8 +56,8 @@ function ApproveSpender() {
       <button
         onClick={() =>
           execute({
-            owner: "0.0.1001",
-            spender: "0.0.2002",
+            owner: "0.0.owner",
+            spender: "0.0.spender",
             amount: 10,
           })
         }
@@ -69,4 +69,3 @@ function ApproveSpender() {
   );
 }
 ```
-

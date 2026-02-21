@@ -73,7 +73,7 @@ interface AllowanceStatus {
 import { useAllowanceStatus } from "hierokit";
 
 function AllowancePanel() {
-  const { data, status } = useAllowanceStatus({ owner: "0.0.1001" });
+  const { data, status } = useAllowanceStatus({ owner: "0.0.owner" });
 
   if (status === "idle") return <p>Enter an owner account ID</p>;
   if (status === "loading") return <p>Loading allowances…</p>;

@@ -13,7 +13,7 @@ import { useAccountInfo } from "hierokit";
 - `accountId?: string | AccountId | null`
 
   - Omit to use the client's operator account.
-  - Pass a string (`"0.0.1234"`) or SDK `AccountId`.
+  - Pass a string (`"0.0.xxxx"`) or SDK `AccountId`.
 
 ## Returns
 
@@ -47,4 +47,3 @@ function AccountInfoPanel() {
   );
 }
 ```
-

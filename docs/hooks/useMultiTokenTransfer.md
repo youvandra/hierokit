@@ -53,8 +53,8 @@ function AirdropButton() {
         onClick={() =>
           execute({
             items: [
-              { tokenId: "0.0.5005", to: "0.0.1234", amount: 10 },
-              { tokenId: "0.0.5006", to: "0.0.5678", amount: 20 },
+              { tokenId: "0.0.tokenA", to: "0.0.alice", amount: 10 },
+              { tokenId: "0.0.tokenB", to: "0.0.bob", amount: 20 },
             ],
             memo: "Promo drop",
           })
@@ -67,4 +67,3 @@ function AirdropButton() {
   );
 }
 ```
-

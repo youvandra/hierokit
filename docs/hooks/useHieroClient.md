@@ -25,7 +25,7 @@ function TransferButton() {
   const client = useHieroClient();
 
   async function onClick() {
-    const handle = await client.transferHbar("0.0.12345", 10, "Hello HieroKit");
+    const handle = await client.transferHbar("0.0.recipient", 10, "Hello HieroKit");
     const receipt = await handle.wait();
     console.log("Status", receipt.status.toString());
   }
@@ -33,4 +33,3 @@ function TransferButton() {
   return <button onClick={onClick}>Transfer 10 ℏ</button>;
 }
 ```
-

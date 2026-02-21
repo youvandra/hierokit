@@ -44,7 +44,7 @@ const client = new Client({
 async function main() {
   console.log("Transferring HBAR...");
   
-  const handle = await client.transferHbar("0.0.12345", 10, "Hello HieroKit");
+  const handle = await client.transferHbar("0.0.xxxx", 10, "Hello HieroKit");
   console.log(`Transaction ID: ${handle.transactionId}`);
   
   const receipt = await handle.wait();

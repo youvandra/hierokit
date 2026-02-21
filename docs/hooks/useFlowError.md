@@ -26,7 +26,7 @@ import {
 } from "hierokit";
 
 const flow: TransactionFlow = async (client) => {
-  const handle = await client.transferHbar("0.0.12345", 10);
+  const handle = await client.transferHbar("0.0.recipient", 10);
   return handle.wait();
 };
 
@@ -38,4 +38,3 @@ function ErrorBanner() {
   return <div>{String(error)}</div>;
 }
 ```
-
