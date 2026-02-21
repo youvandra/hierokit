@@ -1,9 +1,6 @@
 # useTransferFlowStatus
 
-Placeholder hook for looking up transfer flows by ID.
-
-The current implementation does not yet integrate with any global flow
-registry; it always returns static `"idle"` state and `null` data.
+Mirror-backed hook for looking up transaction status by transaction ID.
 
 ## Import
 
@@ -25,10 +22,36 @@ Pass `null` to disable the hook.
 
 ```ts
 {
-  data: FlowHandle<TransactionReceipt> | null;
+  data: MirrorTransaction[] | null;
   status: "idle" | "loading" | "success" | "error";
   error: unknown | null;
   refresh: () => void;
+}
+```
+
+`MirrorTransaction` matches the mirror node REST API transaction shape:
+
+```ts
+interface MirrorTransfer {
+  account: string;
+  amount: number;
+  is_approval: boolean;
+}
+
+interface MirrorTokenTransfer {
+  token_id: string;
+  account: string;
+  amount: number;
+  is_approval: boolean;
+}
+
+interface MirrorTransaction {
+  transaction_id: string;
+  consensus_timestamp: string;
+  name: string;
+  result: string;
+  transfers: MirrorTransfer[];
+  token_transfers: MirrorTokenTransfer[];
 }
 ```
 
@@ -38,8 +61,14 @@ Pass `null` to disable the hook.
 import { useTransferFlowStatus } from "hierokit";
 
 function FlowDebug({ flowId }: { flowId: string }) {
-  const { data, status } = useTransferFlowStatus({ flowId });
-  return <pre>{JSON.stringify({ status, hasHandle: !!data }, null, 2)}</pre>;
+  const { data, status, refresh } = useTransferFlowStatus({ flowId });
+
+  return (
+    <div>
+      <button onClick={refresh}>Refresh status</button>
+      <p>Status: {status}</p>
+      <pre>{JSON.stringify(data, null, 2)}</pre>
+    </div>
+  );
 }
 ```
-

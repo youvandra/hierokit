@@ -1,10 +1,6 @@
 # useTransferPreview
 
-Placeholder hook for building pre-transfer UI previews.
-
-The current implementation does not perform any network calls and always
-returns static `"idle"` state. It exists to reserve the API and docs for more
-advanced preview flows.
+Hook for estimating the network fee for an HBAR transfer before submitting it.
 
 ## Import
 
@@ -28,7 +24,7 @@ Pass `null` to disable the hook.
 
 ```ts
 {
-  data: null;
+  data: Hbar | null;
   status: "idle" | "loading" | "success" | "error";
   error: unknown | null;
   refresh: () => void;
@@ -41,8 +37,17 @@ Pass `null` to disable the hook.
 import { useTransferPreview } from "hierokit";
 
 function PreviewPanel() {
-  const { status } = useTransferPreview(null);
-  return <p>Status: {status}</p>;
+  const { data, status, refresh } = useTransferPreview({
+    to: "0.0.1002",
+    amount: 1,
+  });
+
+  return (
+    <div>
+      <button onClick={refresh}>Estimate fee</button>
+      <p>Status: {status}</p>
+      <p>Estimated fee: {data ? data.toString() : "–"}</p>
+    </div>
+  );
 }
 ```
-

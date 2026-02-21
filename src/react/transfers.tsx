@@ -71,6 +71,65 @@ export interface UseTransferResult<TReceipt = TransactionReceipt> {
   execute: (args: any) => Promise<void>;
 }
 
+export interface MirrorLinks {
+  next: string | null;
+}
+
+export interface MirrorTransfer {
+  account: string;
+  amount: number;
+  is_approval: boolean;
+}
+
+export interface MirrorTokenTransfer {
+  token_id: string;
+  account: string;
+  amount: number;
+  is_approval: boolean;
+}
+
+export interface MirrorTransaction {
+  transaction_id: string;
+  consensus_timestamp: string;
+  name: string;
+  result: string;
+  transfers: MirrorTransfer[];
+  token_transfers: MirrorTokenTransfer[];
+  [key: string]: unknown;
+}
+
+export interface MirrorTransactionList {
+  transactions: MirrorTransaction[];
+  links: MirrorLinks;
+}
+
+export interface MirrorCryptoAllowance {
+  owner: string;
+  spender: string;
+  amount: string;
+  [key: string]: unknown;
+}
+
+export interface MirrorTokenAllowance {
+  owner: string;
+  spender: string;
+  token_id: string;
+  amount: string;
+  [key: string]: unknown;
+}
+
+export interface MirrorNftAllowance {
+  owner: string;
+  spender: string;
+  token_id: string;
+  [key: string]: unknown;
+}
+
+export interface MirrorAllowanceList<TAllowance> {
+  allowances: TAllowance[];
+  links: MirrorLinks;
+}
+
 export function useTransferHbar(
   options: TransactionFlowOptions = {}
 ): UseTransferResult<TransactionReceipt> {
@@ -376,32 +435,58 @@ export function useAllowanceStatus(
       ? args.owner
       : args.owner.toString();
 
-  const { data, status, error, refresh } = useMirrorRest<{
-    hbar_allowances?: unknown[];
-    token_allowances?: unknown[];
-    nft_allowances?: unknown[];
-  }>(
-    ownerId ? `api/v1/accounts/${ownerId}` : "api/v1/accounts",
+  const crypto = useMirrorRest<MirrorAllowanceList<MirrorCryptoAllowance>>(
+    ownerId ? `api/v1/accounts/${ownerId}/allowances/crypto` : "api/v1/accounts",
     {
       enabled: !!ownerId,
     }
   );
 
-  const mapped = useMemo<AllowanceStatus | null>(() => {
-    if (!ownerId || !data) return null;
-    const anyData = data as any;
+  const tokens = useMirrorRest<MirrorAllowanceList<MirrorTokenAllowance>>(
+    ownerId ? `api/v1/accounts/${ownerId}/allowances/tokens` : "api/v1/accounts",
+    {
+      enabled: !!ownerId,
+    }
+  );
+
+  const nfts = useMirrorRest<MirrorAllowanceList<MirrorNftAllowance>>(
+    ownerId ? `api/v1/accounts/${ownerId}/allowances/nfts` : "api/v1/accounts",
+    {
+      enabled: !!ownerId,
+    }
+  );
+
+  const data = useMemo<AllowanceStatus | null>(() => {
+    if (!ownerId) return null;
+    if (!crypto.data && !tokens.data && !nfts.data) return null;
     return {
-      hbarAllowances: anyData.hbar_allowances ?? [],
-      tokenAllowances: anyData.token_allowances ?? [],
-      nftAllowances: anyData.nft_allowances ?? [],
+      hbarAllowances: crypto.data?.allowances ?? [],
+      tokenAllowances: tokens.data?.allowances ?? [],
+      nftAllowances: nfts.data?.allowances ?? [],
     };
-  }, [data, ownerId]);
+  }, [ownerId, crypto.data, tokens.data, nfts.data]);
+
+  const status: "idle" | "loading" | "success" | "error" = useMemo(() => {
+    if (!ownerId) return "idle";
+    const statuses = [crypto.status, tokens.status, nfts.status];
+    if (statuses.includes("loading")) return "loading";
+    if (statuses.includes("error")) return "error";
+    if (statuses.includes("success")) return "success";
+    return "idle";
+  }, [ownerId, crypto.status, tokens.status, nfts.status]);
+
+  const error =
+    crypto.error ?? tokens.error ?? nfts.error ?? null;
 
   return {
-    data: mapped,
-    status: ownerId ? status : "idle",
-    error: ownerId ? error : null,
-    refresh,
+    data,
+    status,
+    error,
+    refresh: () => {
+      crypto.refresh();
+      tokens.refresh();
+      nfts.refresh();
+    },
   };
 }
 
@@ -494,24 +579,21 @@ export interface TransferFlowStatusArgs {
 export function useTransferFlowStatus(
   args: TransferFlowStatusArgs | null
 ): {
-  data: unknown[] | null;
+  data: MirrorTransaction[] | null;
   status: "idle" | "loading" | "success" | "error";
   error: unknown | null;
   refresh: () => void;
 } {
   const flowId = args?.flowId ?? null;
 
-  const { data, status, error, refresh } = useMirrorRest<{
-    transactions?: unknown[];
-  }>("api/v1/transactions", {
+  const { data, status, error, refresh } = useMirrorRest<MirrorTransactionList>("api/v1/transactions", {
     enabled: !!flowId,
     query: flowId ? { transactionId: flowId } : undefined,
   });
 
-  const mapped = useMemo<unknown[] | null>(() => {
+  const mapped = useMemo<MirrorTransaction[] | null>(() => {
     if (!flowId || !data) return null;
-    const anyData = data as any;
-    return anyData.transactions ?? [];
+    return data.transactions ?? [];
   }, [data, flowId]);
 
   return {
@@ -529,7 +611,7 @@ export interface TransferHistoryArgs {
 export function useTransferHistory(
   args: TransferHistoryArgs | null
 ): {
-  data: unknown[] | null;
+  data: MirrorTransaction[] | null;
   status: "idle" | "loading" | "success" | "error";
   error: unknown | null;
   refresh: () => void;
@@ -541,17 +623,14 @@ export function useTransferHistory(
       ? args.accountId
       : args.accountId.toString();
 
-  const { data, status, error, refresh } = useMirrorRest<{
-    transactions?: unknown[];
-  }>("api/v1/transactions", {
+  const { data, status, error, refresh } = useMirrorRest<MirrorTransactionList>("api/v1/transactions", {
     enabled: !!accountId,
     query: accountId ? { "account.id": accountId } : undefined,
   });
 
-  const mapped = useMemo<unknown[] | null>(() => {
+  const mapped = useMemo<MirrorTransaction[] | null>(() => {
     if (!accountId || !data) return null;
-    const anyData = data as any;
-    return anyData.transactions ?? [];
+    return data.transactions ?? [];
   }, [data, accountId]);
 
   return {

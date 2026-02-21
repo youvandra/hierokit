@@ -1,9 +1,6 @@
 # useAllowanceStatus
 
-Placeholder hook for querying allowance status.
-
-The current implementation returns static `"idle"` state; it exists to reserve
-the API and documentation shape for future mirror-node integrations.
+Mirror-backed hook for querying HBAR, token, and NFT allowances for an account.
 
 ## Import
 
@@ -25,18 +22,50 @@ Pass `null` to disable the query.
 
 ```ts
 {
-  data: {
-    hbarAllowances: unknown[];
-    tokenAllowances: unknown[];
-    nftAllowances: unknown[];
-  } | null;
+  data: AllowanceStatus | null;
   status: "idle" | "loading" | "success" | "error";
   error: unknown | null;
   refresh: () => void;
 }
 ```
 
-Currently `data` is always `null`.
+`AllowanceStatus` is a thin wrapper around the mirror node REST API:
+
+```ts
+interface MirrorLinks {
+  next: string | null;
+}
+
+interface MirrorCryptoAllowance {
+  owner: string;
+  spender: string;
+  amount: string;
+}
+
+interface MirrorTokenAllowance {
+  owner: string;
+  spender: string;
+  token_id: string;
+  amount: string;
+}
+
+interface MirrorNftAllowance {
+  owner: string;
+  spender: string;
+  token_id: string;
+}
+
+interface MirrorAllowanceList<TAllowance> {
+  allowances: TAllowance[];
+  links: MirrorLinks;
+}
+
+interface AllowanceStatus {
+  hbarAllowances: MirrorCryptoAllowance[];
+  tokenAllowances: MirrorTokenAllowance[];
+  nftAllowances: MirrorNftAllowance[];
+}
+```
 
 ## Usage
 
@@ -46,7 +75,22 @@ import { useAllowanceStatus } from "hierokit";
 function AllowancePanel() {
   const { data, status } = useAllowanceStatus({ owner: "0.0.1001" });
 
-  return <pre>{JSON.stringify({ status, data }, null, 2)}</pre>;
+  if (status === "idle") return <p>Enter an owner account ID</p>;
+  if (status === "loading") return <p>Loading allowances…</p>;
+  if (status === "error") return <p>Failed to load allowances</p>;
+
+  return (
+    <pre>
+      {JSON.stringify(
+        {
+          hbar: data?.hbarAllowances.length,
+          tokens: data?.tokenAllowances.length,
+          nfts: data?.nftAllowances.length,
+        },
+        null,
+        2
+      )}
+    </pre>
+  );
 }
 ```
-

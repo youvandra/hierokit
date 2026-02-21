@@ -1,9 +1,6 @@
 # useTransferHistory
 
-Placeholder hook for querying historical transfers.
-
-The current implementation is a stub which reserves the API surface for future
-mirror-node backed history queries.
+Mirror-backed hook for querying historical transfers for an account.
 
 ## Import
 
@@ -25,12 +22,14 @@ Pass `null` to disable the hook.
 
 ```ts
 {
-  data: unknown[] | null;
+  data: MirrorTransaction[] | null;
   status: "idle" | "loading" | "success" | "error";
   error: unknown | null;
   refresh: () => void;
 }
 ```
+
+See `useTransferFlowStatus` for the `MirrorTransaction` interface.
 
 ## Usage
 
@@ -38,8 +37,14 @@ Pass `null` to disable the hook.
 import { useTransferHistory } from "hierokit";
 
 function HistoryPanel({ accountId }: { accountId: string }) {
-  const { data, status } = useTransferHistory({ accountId });
-  return <pre>{JSON.stringify({ status, data }, null, 2)}</pre>;
+  const { data, status, refresh } = useTransferHistory({ accountId });
+
+  return (
+    <div>
+      <button onClick={refresh}>Load history</button>
+      <p>Status: {status}</p>
+      <pre>{JSON.stringify(data, null, 2)}</pre>
+    </div>
+  );
 }
 ```
-
