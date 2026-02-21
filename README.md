@@ -22,8 +22,20 @@ HieroKit sits on top of the official `@hiero-ledger/sdk` and provides a cleaner,
 
 ## Installation
 
+You can use any major package manager:
+
 ```bash
+# npm
 npm install hierokit @hiero-ledger/sdk
+
+# pnpm
+pnpm add hierokit @hiero-ledger/sdk
+
+# yarn
+yarn add hierokit @hiero-ledger/sdk
+
+# bun
+bun add hierokit @hiero-ledger/sdk
 ```
 
 ## Quick Start (Node / backend)
