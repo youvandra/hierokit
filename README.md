@@ -2,7 +2,7 @@
 
 A developer experience (DX) toolkit for building on the Hiero/Hedera network.
 
-![HieroKit](docs/public/logo.png) (Coming soon)
+![HieroKit logo](docs/public/logo_black.png)
 
 ## Overview
 
@@ -101,6 +101,12 @@ export function AppRoot() {
 ## Documentation
 
 Visit our documentation site at [https://youvandra.github.io/hierokit](https://youvandra.github.io/hierokit) (or run locally with `npm run docs:dev`).
+
+The docs site uses:
+
+- `docs/public/logo_black.png` as the primary logo (light theme)
+- `docs/public/logo_white.png` as the logo for dark backgrounds
+- `docs/public/favicon.ico` as the browser tab icon
 
 ## Contributing
 

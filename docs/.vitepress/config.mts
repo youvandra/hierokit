@@ -3,10 +3,23 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({
   title: "HieroKit",
   description: "A developer experience toolkit for Hiero/Hedera",
+  head: [
+    ['link', { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+  ],
   themeConfig: {
+    siteTitle: false,
+    logo: {
+      light: '/logo_black.png',
+      dark: '/logo_white.png'
+    },
+    search: {
+      provider: 'local'
+    },
+
     nav: [
       { text: 'Home', link: '/' },
       { text: 'Guide', link: '/guide/introduction' },
+      { text: 'Hooks', link: '/hooks/index' },
       { text: 'API', link: '/api/client' }
     ],
 
