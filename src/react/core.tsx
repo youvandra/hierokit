@@ -1,7 +1,8 @@
-import { createContext, useContext, useMemo } from "react";
+import { createContext, useContext, useMemo, useState, useEffect } from "react";
 import type { ReactNode } from "react";
 import { Client } from "../Client.js";
 import type { HieroConfig } from "../types.js";
+import { AddressBookQuery, type NodeAddressBook } from "@hiero-ledger/sdk";
 
 type ClientStatus = "idle" | "ready";
 
@@ -101,3 +102,48 @@ export function useDefaultOperator() {
   return client.raw.getOperator();
 }
 
+type QueryStatus = "idle" | "loading" | "success" | "error";
+
+interface QueryResult<T> {
+  data: T | null;
+  status: QueryStatus;
+  error: unknown | null;
+  refresh: () => void;
+}
+
+export function useNetworkAddressBook(): QueryResult<NodeAddressBook> {
+  const client = useHieroClient();
+  const [data, setData] = useState<NodeAddressBook | null>(null);
+  const [status, setStatus] = useState<QueryStatus>("idle");
+  const [error, setError] = useState<unknown | null>(null);
+  const [version, setVersion] = useState(0);
+
+  useEffect(() => {
+    let cancelled = false;
+    setStatus("loading");
+    setError(null);
+
+    const query = new AddressBookQuery();
+
+    query
+      .execute(client.raw as any)
+      .then((result) => {
+        if (cancelled) return;
+        setData(result);
+        setStatus("success");
+      })
+      .catch((err) => {
+        if (cancelled) return;
+        setError(err);
+        setStatus("error");
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [client, version]);
+
+  const refresh = () => setVersion((v) => v + 1);
+
+  return { data, status, error, refresh };
+}

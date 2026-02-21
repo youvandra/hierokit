@@ -5,3 +5,6 @@ export * from "./transfers.js";
 export * from "./tokens.js";
 export * from "./consensus.js";
 export * from "./schedules.js";
+export * from "./staking.js";
+export * from "./mirror.js";
+export * from "./agents.js";
