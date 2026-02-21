@@ -30,6 +30,7 @@ export default defineConfig({
           { text: 'Introduction', link: '/guide/introduction' },
           { text: 'Getting Started', link: '/guide/getting-started' },
           { text: 'Mental Model', link: '/guide/mental-model' },
+          { text: 'SDK vs HieroKit', link: '/guide/sdk-vs-hierokit' },
           { text: 'React overview', link: '/guide/react' },
           { text: 'Client abstraction', link: '/guide/client-abstraction' },
           { text: 'Transaction flows', link: '/guide/transaction-flows' },
