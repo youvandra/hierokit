@@ -4,10 +4,13 @@ import {
   AccountBalanceQuery,
   AccountId,
   Hbar,
+  TransferTransaction,
 } from "@hiero-ledger/sdk";
 import { Client } from "../../src/Client.js";
 import type { HieroConfig } from "../../src/types.js";
-import { estimateExecutableCost } from "../../src/fees.js";
+import { estimateExecutableCost, extractFeeFromRecord } from "../../src/fees.js";
+import { runIntent, type TransactionIntent } from "../../src/intent.js";
+import { normalizeReceipt, normalizeRecord } from "../../src/results.js";
 
 dotenv.config();
 dotenv.config({ path: ".env.local", override: true });
@@ -72,6 +75,12 @@ integrationDescribe("HieroKit testnet integration", () => {
 
   if (!recipientId) {
     it.skip("can submit a small HBAR transfer (recipient not configured)", () => {});
+    it.skip("can run a simple transfer intent (recipient not configured)", () => {});
+    it.skip("can extract fee breakdown from a real transaction record (recipient not configured)", () => {});
+    it.skip("can run a prepared transfer flow (recipient not configured)", () => {});
+    it.skip("can execute a small HBAR transfer via execute helper (recipient not configured)", () => {});
+    it.skip("can normalize a real transaction receipt", () => {});
+    it.skip("can normalize a real transaction record", () => {});
   } else {
     it("can submit a small HBAR transfer", async () => {
       const handle = await client.transferHbar(
@@ -84,6 +93,103 @@ integrationDescribe("HieroKit testnet integration", () => {
 
       const status = receipt.status.toString();
       expect(status === "SUCCESS" || status === "Ok").toBe(true);
+    });
+
+    it("can run a simple transfer intent", async () => {
+      const intent: TransactionIntent = {
+        type: "transfer-hbar",
+        async toTransaction(innerClient) {
+          const tx = new TransferTransaction()
+            .addHbarTransfer(
+              innerClient.raw.operatorAccountId!,
+              new Hbar(-0.0001)
+            )
+            .addHbarTransfer(recipientId, new Hbar(0.0001))
+            .setTransactionMemo("hierokit-intent-integration-test");
+
+          return tx as any;
+        },
+      };
+
+      const result = await runIntent(client, intent, { timeout: 60_000 });
+      const status = result.receipt.status.toString();
+      expect(status === "SUCCESS" || status === "Ok").toBe(true);
+    });
+
+    it("can extract fee breakdown from a real transaction record", async () => {
+      const handle = await client.transferHbar(
+        recipientId,
+        0.0001,
+        "hierokit-fee-record-test"
+      );
+
+      const record = await handle.getRecord(60_000);
+      const breakdown = extractFeeFromRecord(record);
+
+      expect(breakdown.chargedFee).not.toBeNull();
+      expect(breakdown).toHaveProperty("maxFee");
+    });
+
+    it("can run a prepared transfer flow", async () => {
+      const flow = client.prepareFlow(
+        async (sdkClient) => {
+          return new TransferTransaction()
+            .addHbarTransfer(
+              sdkClient.operatorAccountId!,
+              new Hbar(-0.0001)
+            )
+            .addHbarTransfer(recipientId, new Hbar(0.0001))
+            .setTransactionMemo("hierokit-prepareflow-integration");
+        },
+        { timeout: 60_000, maxRetries: 1 }
+      );
+
+      const receipt = await flow.waitForReceipt();
+      const status = receipt.status.toString();
+      expect(status === "SUCCESS" || status === "Ok").toBe(true);
+    });
+
+    it("can execute a small HBAR transfer via execute helper", async () => {
+      const tx = new TransferTransaction()
+        .addHbarTransfer(
+          client.raw.operatorAccountId!,
+          new Hbar(-0.0001)
+        )
+        .addHbarTransfer(recipientId, new Hbar(0.0001))
+        .setTransactionMemo("hierokit-execute-integration");
+
+      const receipt = await client.execute(tx, { timeout: 60_000 });
+      const status = receipt.status.toString();
+      expect(status === "SUCCESS" || status === "Ok").toBe(true);
+    });
+
+    it("can normalize a real transaction receipt", async () => {
+      const handle = await client.transferHbar(
+        recipientId,
+        0.0001,
+        "hierokit-normalize-receipt"
+      );
+
+      const receipt = await handle.wait(60_000);
+      const normalized = normalizeReceipt(receipt);
+
+      expect(typeof normalized.status).toBe("string");
+      expect(typeof normalized.success).toBe("boolean");
+    });
+
+    it("can normalize a real transaction record", async () => {
+      const handle = await client.transferHbar(
+        recipientId,
+        0.0001,
+        "hierokit-normalize-record"
+      );
+
+      const record = await handle.getRecord(60_000);
+      const normalized = normalizeRecord(record);
+
+      expect(typeof normalized.status).toBe("string");
+      expect(typeof normalized.success).toBe("boolean");
+      expect(normalized).toHaveProperty("transactionId");
     });
   }
 });
