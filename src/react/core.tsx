@@ -97,7 +97,7 @@ export function useMaxTransactionFee() {
   return fee ?? null;
 }
 
-export function useDefaultOperator() {
+export function useDefaultOperator(): unknown {
   const client = useHieroClient();
   return client.raw.getOperator();
 }

@@ -155,7 +155,11 @@ export function useAccountHbarBalance(accountId?: string | AccountId | null) {
   return { data: hbar, status, error, refresh };
 }
 
-export function useAccountTokens(accountId?: string | AccountId | null) {
+type AccountTokensResult = QueryResult<unknown>;
+
+export function useAccountTokens(
+  accountId?: string | AccountId | null
+): AccountTokensResult {
   const { data, status, error, refresh } = useAccountBalanceQuery(accountId);
 
   const tokens = useMemo(() => {
@@ -242,7 +246,11 @@ export function useAccountKeys(accountId?: string | AccountId | null) {
   return { data: keys, status, error, refresh };
 }
 
-export function useAccountStakingInfo(accountId?: string | AccountId | null) {
+type AccountStakingInfoResult = QueryResult<{ stakingInfo: unknown | null } | null>;
+
+export function useAccountStakingInfo(
+  accountId?: string | AccountId | null
+): AccountStakingInfoResult {
   const { data, status, error, refresh } = useAccountInfoQuery(accountId);
 
   const staking = useMemo(() => {
@@ -299,7 +307,11 @@ export function useAccountExpiration(accountId?: string | AccountId | null) {
   return { data: expiration, status, error, refresh };
 }
 
-export function useAccountAutoRenew(accountId?: string | AccountId | null) {
+type AccountAutoRenewResult = QueryResult<{ autoRenewPeriod: unknown | null } | null>;
+
+export function useAccountAutoRenew(
+  accountId?: string | AccountId | null
+): AccountAutoRenewResult {
   const { data, status, error, refresh } = useAccountInfoQuery(accountId);
 
   const autoRenew = useMemo(() => {
