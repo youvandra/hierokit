@@ -1,5 +1,10 @@
 # HieroKit
 
+[![npm version](https://img.shields.io/npm/v/hierokit.svg?style=flat-square)](https://www.npmjs.com/package/hierokit)
+[![CI](https://github.com/youvandra/hierokit/actions/workflows/ci.yml/badge.svg)](https://github.com/youvandra/hierokit/actions/workflows/ci.yml)
+[![Docs](https://img.shields.io/badge/docs-website-blue?style=flat-square)](https://youvandra.github.io/hierokit)
+[![License](https://img.shields.io/github/license/youvandra/hierokit.svg?style=flat-square)](./LICENSE)
+
 A developer experience (DX) toolkit for building on the Hiero/Hedera network.
 
 ![HieroKit logo](docs/public/logo_white.png)
@@ -114,9 +119,33 @@ export function AppRoot() {
 
 Visit our documentation site at [https://youvandra.github.io/hierokit](https://youvandra.github.io/hierokit) (or run locally with `npm run docs:dev`).
 
+You can also explore:
+
+- [API reference](https://youvandra.github.io/hierokit/api/client)
+- [React hooks reference](https://youvandra.github.io/hierokit/hooks/)
+- [Testing philosophy](https://youvandra.github.io/hierokit/guide/testing-philosophy)
+
+## Project health
+
+- [Stability guarantees](./STABILITY.md)
+- [Security policy](./SECURITY.md)
+- [Changelog](./CHANGELOG.md)
+- [Code of Conduct](./CODE_OF_CONDUCT.md)
+
 ## Contributing
 
 We welcome contributions! Please see [CONTRIBUTING.md](./CONTRIBUTING.md) for details.
+
+If you are planning a larger change, consider opening an issue first to discuss
+the design and make sure it aligns with the project’s goals.
+
+## Meet the team
+
+- **Maintainer**: [@youvandra](https://github.com/youvandra)
+
+Contributions from the community are very welcome. If you would like to get more
+involved, feel free to open issues, send pull requests, or suggest ideas in the
+issue tracker.
 
 ## License
 

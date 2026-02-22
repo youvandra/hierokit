@@ -17,6 +17,10 @@ const enableIntegration = process.env.HIEROKIT_TESTNET === "1";
 const integrationDescribe = enableIntegration ? describe : describe.skip;
 
 integrationDescribe("HieroKit testnet integration", () => {
+  if (!enableIntegration) {
+    return;
+  }
+
   const operatorId = process.env.HIEROKIT_TEST_OPERATOR_ID;
   const operatorKey = process.env.HIEROKIT_TEST_OPERATOR_KEY;
   const network =
@@ -25,7 +29,7 @@ integrationDescribe("HieroKit testnet integration", () => {
 
   if (!operatorId || !operatorKey) {
     throw new Error(
-      "HIEROKIT_TEST_OPERATOR_ID and HIEROKIT_TEST_OPERATOR_KEY must be set for integration tests"
+      "HIEROKIT_TEST_OPERATOR_ID and HIEROKIT_TEST_OPERATOR_KEY must be set when HIEROKIT_TESTNET=1"
     );
   }
 
