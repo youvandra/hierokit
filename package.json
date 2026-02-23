@@ -1,6 +1,6 @@
 {
   "name": "hierokit",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Flow-based TypeScript toolkit for safe, production-ready transactions on Hiero/Hedera networks",
   "main": "dist/index.cjs",
   "scripts": {
