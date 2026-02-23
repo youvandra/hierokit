@@ -12,6 +12,19 @@ import {
 import { HieroConfig, TransactionOptions, type HieroSigner } from "./types.js";
 import { TransactionHandle } from "./TransactionHandle.js";
 
+function assertNodeRuntime() {
+  const isNodeLike =
+    typeof process !== "undefined" &&
+    typeof process.versions === "object" &&
+    !!(process as any).versions?.node;
+
+  if (!isNodeLike) {
+    throw new Error(
+      "HieroKit Client currently supports Node.js runtimes only. Use HieroKit on the server or in SSR, not in a browser bundle."
+    );
+  }
+}
+
 /**
  * HieroKit Client: Simplified, developer-friendly interface for Hiero interactions.
  */
@@ -23,6 +36,7 @@ export class Client {
   private _defaultTimeoutMs: number;
 
   constructor(config: HieroConfig) {
+    assertNodeRuntime();
     this._config = config;
     this._signers = config.signers ?? [];
     this._maxRetries = config.maxRetries ?? 3;

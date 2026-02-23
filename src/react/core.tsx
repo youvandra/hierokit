@@ -4,6 +4,19 @@ import { Client } from "../Client.js";
 import type { HieroConfig } from "../types.js";
 import { AddressBookQuery, type NodeAddressBook } from "@hiero-ledger/sdk";
 
+function assertBrowserSafeUsage() {
+  const isNodeLike =
+    typeof process !== "undefined" &&
+    typeof process.versions === "object" &&
+    !!(process as any).versions?.node;
+
+  if (!isNodeLike && typeof window !== "undefined") {
+    throw new Error(
+      "HieroProvider cannot be used in a browser-only bundle with the Node-based Hiero SDK. Run HieroKit on the server and pass data to the client instead."
+    );
+  }
+}
+
 type ClientStatus = "idle" | "ready";
 
 type ClientHealth = "unknown" | "ready";
@@ -23,6 +36,7 @@ interface HieroProviderProps {
 
 export function HieroProvider(props: HieroProviderProps) {
   const value = useMemo<HieroClientContextValue>(() => {
+    assertBrowserSafeUsage();
     const client = new Client(props.config);
     return {
       client,
