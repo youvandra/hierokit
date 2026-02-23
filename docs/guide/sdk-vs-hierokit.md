@@ -48,7 +48,7 @@ client.setOperator(
   process.env.HEDERA_ACCOUNT_ID!,
   process.env.HEDERA_PRIVATE_KEY!
 );
-``+
+```
 
 ### Using HieroKit
 
@@ -285,4 +285,3 @@ Use **HieroKit** when:
 
 In practice, most apps can use HieroKit for 90% of work and drop down to the
 SDK only for the few advanced cases where absolute control is required.
-
